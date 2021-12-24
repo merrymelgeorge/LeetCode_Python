@@ -1,0 +1,120 @@
+1 - 1. Two Sum
+
+def two_sum(arr, target):
+    l = len(arr)
+    for i in range(0,l-1):
+        for j in range(1, l):
+            if arr[i] + arr[j] == target:
+                return([i,j])
+            j = j + 1
+        i = i + 1
+    print("None")
+
+arr = [2,7,11,15]
+target = 29
+two_sum(arr, target)
+
+Time Complexity = O(n2), Space Complexity = O(1)
+
+def twoSum(nums, target):
+    container = {}
+    for i, num in enumerate(nums):
+        if target - num in container:
+            return [container[target - num], i]
+        container[num] = i
+    return
+
+
+arr = [2,2,7,11,15]
+target = 26
+twoSum(arr, target)
+
+Time Complexity = O(n), Space Complexity = O(n)
+
+2 - 9. Palindrome Number Problem
+
+def palin(a):
+    if a < 0:
+        print("F")
+        return
+    elif a >0 and a%10 == 0:
+        print("F")
+        return
+    else:
+        sum = 0
+        while a>sum:
+            sum = sum*10 + a%10
+            a = a//10
+        if (sum == a or a == sum//10):
+            print("Y")
+            return
+        else:
+		    print("N")
+            return False
+
+
+a = 121
+palin(a)
+
+Time Complexity = O(n), Space Complexity = O(1)
+
+def palin(a):
+    a = str(a)
+    for i in range((len(a)//2)):
+        if a[i] != a[(len(a))-i-1]:
+            print("N")
+            return
+    print("Y")
+
+
+a = 1210
+palin(a)
+
+Time Complexity = O(n), Space Complexity = O(n) -- 
+In real world number size is indeed unlimited, however here it's about numerical primitives. 
+Each primitive by definition requires a fixed number of storage units (and that's the reason why it can hold only a limited range of values). 
+Unlike numerical primitives, size of a string is theoretically unlimited and it occupies storage corresponding to input size (i.e., characters which constitute the string)
+
+3 - 13. Roman To Integer
+
+def romtonum(s):
+    n = 0
+    rom = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500,'M':1000}
+    for i in range(1,len(s)):
+        if s[i] in ('V', 'X') and s[i-1] == 'I':
+            n = n-1
+        elif s[i] in ('L', 'C') and s[i-1] == 'X':
+            n = n-10
+        elif s[i] in ('D', 'M') and s[i-1] == 'C':
+            n = n-100
+        elif s[i-1] in rom:
+            n = n + rom[s[i-1]] 
+        if i+1 == len(s):
+            n = n + rom[s[i]]
+
+    print(n)
+
+
+s = 'LLLL'
+romtonum(s)
+
+Time Complexity = O(n), Space Complexity = O(1)
+
+Better Solution :
+def romanToInt(s):
+    # Dictionary of roman numerals
+    roman_map = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    # Length of the given string
+    n = len(s)
+    # This variable will store result
+    num = roman_map[s[n - 1]]
+    # Loop for each character from right to left
+    for i in range(n - 2, -1, -1):
+        # Check if the character at right of current character is bigger or smaller
+        if roman_map[s[i]] >= roman_map[s[i + 1]]:
+            num += roman_map[s[i]]
+        else:
+            num -= roman_map[s[i]]
+    return num
+
+Time Complexity = O(n), Space Complexity = O(1)
